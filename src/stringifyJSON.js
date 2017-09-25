@@ -22,17 +22,25 @@ var stringifyJSON = function(obj) {
      returnStr += stringifyJSON(obj[i]);
       returnStr += ',';
     }
+    if(returnStr[returnStr.length - 1] === ','){
+      returnStr = returnStr.slice(0, returnStr.length - 1);
+    }
     returnStr += ']';
   }
   
 
-  //object case
-
-
-
-
-
-
+  if(typeof obj === 'object' && !Array.isArray(obj)){
+    returnStr += '{';
+    for(var prop in obj){
+      if(obj[prop] !== undefined){
+        returnStr += stringifyJSON(prop) + ':' + stringifyJSON(obj[prop]) + ',';
+      }
+    }
+    if(returnStr[returnStr.length - 1] === ','){
+      returnStr = returnStr.slice(0, returnStr.length - 1);
+    }
+    returnStr += '}'
+  }
   return returnStr;
 };
 
