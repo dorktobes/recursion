@@ -6,6 +6,10 @@
 var stringifyJSON = function(obj) {
   var returnStr = '';
   
+  //null case with break
+  if(obj === null){
+    return 'null';
+  }
   //string case
   if(typeof obj === 'string'){
     returnStr += '"' + obj + '"';
@@ -28,11 +32,11 @@ var stringifyJSON = function(obj) {
     returnStr += ']';
   }
   
-
+//object case
   if(typeof obj === 'object' && !Array.isArray(obj)){
     returnStr += '{';
     for(var prop in obj){
-      if(obj[prop] !== undefined){
+      if(obj[prop] !== undefined && (typeof obj[prop] !== 'function')){
         returnStr += stringifyJSON(prop) + ':' + stringifyJSON(obj[prop]) + ',';
       }
     }
